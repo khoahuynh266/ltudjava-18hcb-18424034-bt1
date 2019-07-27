@@ -22,11 +22,11 @@ public class SinhVien {
         this.CMND = "";
     }
     
-    public SinhVien(String _MSSV, String _hoTen, int _gioiTinh, String _CMND){
-        this.MSSV = _MSSV;
-        this.hoTen = _hoTen;
-        this.gioiTinh = _gioiTinh;
-        this.CMND = _CMND;
+    public SinhVien(String MSSV, String hoTen, int gioiTinh, String CMND){
+        this.MSSV = MSSV;
+        this.hoTen = hoTen;
+        this.gioiTinh = gioiTinh;
+        this.CMND = CMND;
     }
     
     public String getMSSV(){
