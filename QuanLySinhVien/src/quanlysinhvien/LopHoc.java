@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class LopHoc {
     private String tenLop;
     private ArrayList<SinhVien> listSinhVien = new ArrayList<SinhVien>();
+    private ArrayList<ThoiKhoaBieu> tkb = new ArrayList<ThoiKhoaBieu>();
     
     public LopHoc(){
         this.tenLop = "";
@@ -37,5 +38,16 @@ public class LopHoc {
         if(this.tenLop.equalsIgnoreCase(name))
             return true;
         return false;
+    }
+    public ArrayList<ThoiKhoaBieu> getTKB(){
+        return this.tkb;
+    }
+    
+    public void setTKB(ArrayList<ThoiKhoaBieu> listTKB){
+        this.tkb = listTKB;
+    }
+    
+    public void themTKB(ThoiKhoaBieu _tkb){
+        this.tkb.add(_tkb);
     }
 }

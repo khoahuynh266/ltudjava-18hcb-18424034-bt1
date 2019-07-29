@@ -17,29 +17,30 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static quanlysinhvien.QuanLyLopHoc.th;
 
 /**
  *
  * @author yumil
  */
-public class QuanLyLopHoc extends javax.swing.JFrame {
+public class QuanLyTKB extends javax.swing.JFrame {
     private final int IMPORT_FILE = 1;
     private final int EXPORT_FILE = 2;
    
     static TruongHoc th = new TruongHoc();
-    themSinhVien sv;
     private String[] columName = {
-        "STT", "MSSV", "Họ Tên", "Giới Tính", "CMND"
+        "STT", "Mã môn", "Tên môn", "Phòng học"
     };
+    private QuanLyLopHoc qlLH;
     /**
      * Creates new form QuanLyLopHoc
      */
-    public QuanLyLopHoc() {
+    public QuanLyTKB() {
         initComponents();
          initLayout();
     }
 private void initLayout() {        
-        jsvTable.setVisible(false);
+        jtableTKB.setVisible(false);
         if (th.getsoLop() > 0) {
             addDataForComboBoxClass();
         } }
@@ -58,16 +59,14 @@ private void initLayout() {
         btnImport = new javax.swing.JButton();
         cbLop = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jsvTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        btnExport = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jtableTKB = new javax.swing.JTable();
+        jlableNotify = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Quản lý lớp học");
+        jLabel1.setText("Quản lý thời khóa biểu");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Danh sách lớp");
@@ -89,7 +88,7 @@ private void initLayout() {
 
         jScrollPane1.setAutoscrolls(true);
 
-        jsvTable.setModel(new javax.swing.table.DefaultTableModel(
+        jtableTKB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -100,82 +99,58 @@ private void initLayout() {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jsvTable.setAutoscrolls(false);
-        jsvTable.setColumnSelectionAllowed(true);
-        jsvTable.setFocusable(false);
-        jScrollPane1.setViewportView(jsvTable);
-        jsvTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jtableTKB.setAutoscrolls(false);
+        jtableTKB.setColumnSelectionAllowed(true);
+        jtableTKB.setFocusable(false);
+        jScrollPane1.setViewportView(jtableTKB);
+        jtableTKB.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Thêm Sinh Viên");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        btnExport.setText("Export");
-        btnExport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Quản lý TKB");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jlableNotify.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlableNotify.setForeground(new java.awt.Color(255, 0, 0));
+        jlableNotify.setText("Notify");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnImport)
+                .addGap(128, 128, 128))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(243, 243, 243)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnImport)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExport)
-                        .addGap(53, 53, 53))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jlableNotify, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(213, 213, 213))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnImport)
-                        .addComponent(btnExport))
+                        .addComponent(btnImport))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbLop)
                         .addGap(2, 2, 2)))
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jlableNotify)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -191,29 +166,12 @@ private void initLayout() {
     private void cbLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLopActionPerformed
         // TODO add your handling code here: 
         if(cbLop.getSelectedItem().toString().equals("--")){
-            JOptionPane.showMessageDialog(null, "!!! Chưa Có Danh Sách Lớp");
+            JOptionPane.showMessageDialog(null, "!!! Chua có danh sách lớp");
         } else{
             addDataForTableListSV();
         }
         
     }//GEN-LAST:event_cbLopActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        sv = new themSinhVien();
-        sv.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
-        // TODO add your handling code here:
-        importExportFile("Export File", EXPORT_FILE);
-    }//GEN-LAST:event_btnExportActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-         new QuanLyTKB().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 private void importExportFile(String title, int key) {
         JFileChooser j = new JFileChooser();
         j.setDialogTitle(title);
@@ -234,7 +192,7 @@ private void importExportFile(String title, int key) {
                     readFile(f);
                     break;
                 case EXPORT_FILE:
-                    writeFile(f);
+                 //   writeFile(f);
                     break;
             }
         }
@@ -249,157 +207,69 @@ private void importExportFile(String title, int key) {
         }          
         cbLop.setModel(cbModel);
     }
-  private void addDataForTableListSV(){
+ 
+    private void addDataForTableListSV(){
         
         String select = getClassNameInComboBox();
 //        System.out.println("Select: " + select);
           
         ArrayList<LopHoc> listLH = th.getList(); 
-        DefaultTableModel tbModel = new DefaultTableModel();
+         DefaultTableModel tblTKB = new DefaultTableModel();
         
-        int stt = 1;
-        
-        for (LopHoc i : listLH) {
-            if(select.equalsIgnoreCase(i.getTenLop())){
-                jsvTable.setVisible(true);
-                tbModel.setColumnIdentifiers(columName);
-                                                
-                // get danh sách sinh viên và hiển thị lên table    
-                ArrayList<SinhVien> listSV = new ArrayList<SinhVien>();
-                listSV = i.getListSinhVien();
-                for (SinhVien sv : listSV) {
+        for (LopHoc i : listLH) {                   
+            ArrayList<ThoiKhoaBieu> listSchedule = i.getTKB();
+            if(listSchedule.size() > 0){
+                tblTKB.setColumnIdentifiers(columName);
+                int stt = 1;
+                for(ThoiKhoaBieu item : listSchedule){
                     
-//                    System.out.println(sv.getMSSV() + " " + sv.getName());
-                    
-                    String[] info = new String[5];
+                    String[] info = new String[4];
                     info[0] = String.valueOf(stt);
-                    info[1] = sv.getMSSV();
-                    info[2] = sv.getTen();
-                    if (sv.getGioiTinh() == 0) {
-                        info[3] = "Nữ";
-                    } else {
-                        info[3] = "Nam";
-                    }
-                    info[4] = sv.getCMND();
+                    info[1] = item.getMH().getMaMH();
+                    info[2] = item.getMH().getTenMH();
+                    info[3] = item.getPH();
+                    
+                    System.out.println("Mã MH: " + item.getMH().getMaMH());
 
-                    tbModel.addRow(info);
+                    tblTKB.addRow(info);
                     stt++;
-                }
-                jsvTable.setModel(tbModel);
-            } 
-            else{
-                tbModel.setColumnIdentifiers(columName);
-                jsvTable.setModel(tbModel);
-            }            
-        }
+                }                
+                jtableTKB.setModel(tblTKB);
+            } else {
+                jlableNotify.setText("Chưa Có Thời Khóa Biểu!!!!");
+                tblTKB.setColumnIdentifiers(columName);
+                jtableTKB.setModel(tblTKB);
+            }           
+        }          
     }
  private void readFile(File file) {
         try {
             try (FileReader reader = new FileReader(file)) {
                 BufferedReader buffer = new BufferedReader(reader);
-
                 String line;
                 line = buffer.readLine();
 
                 String[] tenLop = line.split(",");
                 LopHoc lh = this.th.getLopHoc(tenLop[0]);
-                
-                boolean checkLopHoc = true;
-                if (lh.getTenLop().equals("")) {
-                    checkLopHoc = false;
-                    lh.setTenLop(tenLop[0]);
-                }
-                
-                if (checkLopHoc == true) {
-                    this.th.setLopHoc(lh, line);
-                    JOptionPane.showMessageDialog(null, "!!! Lớp đã tồn tại");                    
-                } else {
-                    this.th.setSoLop(this.th.getsoLop() + 1);
-                    this.th.themLop(lh);
-                    
-                    // get info SV
+                               
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
                         
-                        SinhVien sv = new SinhVien();
-                        sv.setMSSV(info[1]);
-                        sv.setTen(info[2]);
-                        sv.setCMND(info[4]);
-                        int gt = -1;
-
-                        if (info[3].equalsIgnoreCase("Nam")) {
-                            gt = 1;
-                        }
-                        if (info[3].equalsIgnoreCase("Nữ")) {
-                            gt = 0;
-                        }
-
-                        sv.setGioiTinh(gt);
-                        lh.themSinhVien(sv);
-                    }
+                        MonHoc monHoc = new MonHoc(info[0], info[1]);
+                        ThoiKhoaBieu tKB = new ThoiKhoaBieu(monHoc, info[2]);
+                        
+                        lh.themTKB(tKB);
                 }
                 buffer.close();
             }
-                   initLayout();
+                  initLayout();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error to open file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
 
-    private void writeFile(File file) {
-        try{            
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
-                        
-            String tenLop = getClassNameInComboBox();
-            LopHoc lop = th.getLopHoc(tenLop);
-            
-            writer.append(tenLop);
-            writer.append('\n');
-            
-            writer.append("STT,");
-            writer.append(columName[1]);
-            writer.append(",");
-            writer.append(columName[2]);
-            writer.append(",");
-            writer.append(columName[3]);
-            writer.append(",");
-            writer.append(columName[4]);
-            writer.append('\n');
-            ArrayList<SinhVien> dsSV = new ArrayList<SinhVien>();
-            dsSV = lop.getListSinhVien();
-            
-            if (dsSV.size() > 0) {
-                int stt = 1;
-                // Lấy danh sách học sinh trong lớp
-                for (SinhVien sv : dsSV) {
-                    writer.append(Integer.toString(stt) + ',');                    
-                    writer.append(sv.getMSSV());
-                    writer.append(',');
-                    writer.append(sv.getTen());
-                    writer.append(',');
-                    if (sv.getGioiTinh() == 1) {
-                        writer.append("Nam");
-                    } else {
-                        writer.append("Nữ");
-                    }
-                    writer.append(',');
-                    writer.append(sv.getCMND());
-                    writer.append('\n');
-                    stt++;
-                }
-            }
-            writer.close();
-             JOptionPane.showMessageDialog(null, "Export File!", "Success", JOptionPane.INFORMATION_MESSAGE);
-   
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Error to export file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
+     
     private String getClassNameInComboBox(){
         String result = cbLop.getSelectedItem().toString();
         return result;
@@ -442,14 +312,12 @@ private void importExportFile(String title, int key) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnImport;
     private javax.swing.JComboBox cbLop;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jsvTable;
+    private javax.swing.JLabel jlableNotify;
+    private javax.swing.JTable jtableTKB;
     // End of variables declaration//GEN-END:variables
 }
