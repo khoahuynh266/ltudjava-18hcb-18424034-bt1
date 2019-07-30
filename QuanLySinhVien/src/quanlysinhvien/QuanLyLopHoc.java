@@ -269,8 +269,6 @@ private void importExportFile(String title, int key) {
                 listSV = i.getListSinhVien();
                 for (SinhVien sv : listSV) {
                     
-//                    System.out.println(sv.getMSSV() + " " + sv.getName());
-                    
                     String[] info = new String[5];
                     info[0] = String.valueOf(stt);
                     info[1] = sv.getMSSV();
@@ -312,12 +310,11 @@ private void importExportFile(String title, int key) {
                 
                 if (checkLopHoc == true) {
                     this.th.setLopHoc(lh, line);
-                    JOptionPane.showMessageDialog(null, "!!! Lớp đã tồn tại");                    
+                    JOptionPane.showMessageDialog(null, "!!! Class Already Exists");                    
                 } else {
                     this.th.setSoLop(this.th.getsoLop() + 1);
                     this.th.themLop(lh);
-                    
-                    // get info SV
+                    line = buffer.readLine()+1 ;
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
                         
@@ -337,7 +334,9 @@ private void importExportFile(String title, int key) {
                         sv.setGioiTinh(gt);
                         lh.themSinhVien(sv);
                     }
+                    
                 }
+                
                 buffer.close();
             }
                    initLayout();

@@ -107,7 +107,6 @@ private void initLayout() {
 
         jlableNotify.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlableNotify.setForeground(new java.awt.Color(255, 0, 0));
-        jlableNotify.setText("Notify");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,7 +147,7 @@ private void initLayout() {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbLop)
                         .addGap(2, 2, 2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jlableNotify)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,7 +167,7 @@ private void initLayout() {
         if(cbLop.getSelectedItem().toString().equals("--")){
             JOptionPane.showMessageDialog(null, "!!! Chua có danh sách lớp");
         } else{
-            addDataForTableListSV();
+            addDataForTableTKB();
         }
         
     }//GEN-LAST:event_cbLopActionPerformed
@@ -208,19 +207,20 @@ private void importExportFile(String title, int key) {
         cbLop.setModel(cbModel);
     }
  
-    private void addDataForTableListSV(){
+    private void addDataForTableTKB(){
         
         String select = getClassNameInComboBox();
-//        System.out.println("Select: " + select);
           
         ArrayList<LopHoc> listLH = th.getList(); 
          DefaultTableModel tblTKB = new DefaultTableModel();
         
         for (LopHoc i : listLH) {                   
-            ArrayList<ThoiKhoaBieu> listSchedule = i.getTKB();
-            if(listSchedule.size() > 0){
+                   jtableTKB.setVisible(true);
                 tblTKB.setColumnIdentifiers(columName);
                 int stt = 1;
+                ArrayList<ThoiKhoaBieu> listSchedule = i.getTKB();
+            if(listSchedule.size() > 0){
+          
                 for(ThoiKhoaBieu item : listSchedule){
                     
                     String[] info = new String[4];
@@ -229,8 +229,6 @@ private void importExportFile(String title, int key) {
                     info[2] = item.getMH().getTenMH();
                     info[3] = item.getPH();
                     
-                    System.out.println("Mã MH: " + item.getMH().getMaMH());
-
                     tblTKB.addRow(info);
                     stt++;
                 }                
@@ -246,12 +244,24 @@ private void importExportFile(String title, int key) {
         try {
             try (FileReader reader = new FileReader(file)) {
                 BufferedReader buffer = new BufferedReader(reader);
+               
                 String line;
                 line = buffer.readLine();
 
                 String[] tenLop = line.split(",");
                 LopHoc lh = this.th.getLopHoc(tenLop[0]);
-                               
+                boolean checkLopHoc = true;
+                if (lh.getTenLop().equals("")) {
+                    checkLopHoc = false;
+                    lh.setTenLop(tenLop[0]);
+                } if (checkLopHoc == true) {
+                    this.th.setLopHoc(lh, line);
+                    JOptionPane.showMessageDialog(null, "!!! Lớp đã tồn tại");                    
+                } else {
+                    this.th.setSoLop(this.th.getsoLop() + 1);
+                    this.th.themLop(lh);
+                    
+                    
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
                         
@@ -260,13 +270,14 @@ private void importExportFile(String title, int key) {
                         
                         lh.themTKB(tKB);
                 }
+                }
                 buffer.close();
-            }
+                }
                   initLayout();
-        } catch (Exception e) {
+        }
+            catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error to open file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
      
