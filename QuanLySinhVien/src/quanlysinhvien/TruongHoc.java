@@ -98,7 +98,7 @@ public class TruongHoc {
         return result;
     }
     
-    public void addSVBySubject(String lop, String idMH ,SinhVien sv) {
+    public void themSV_MonHoc(String lop, String idMH ,SinhVien sv) {
         for (Lop_MonHoc lop_mh : this.listLop_MonHoc) {
             if (lop_mh.isExists(lop, idMH)) {
                 lop_mh.themSV(sv);

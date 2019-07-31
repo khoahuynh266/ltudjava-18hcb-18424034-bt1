@@ -27,8 +27,10 @@ import static quanlysinhvien.QuanLyLopHoc.th;
 public class QuanLyMonHoc extends javax.swing.JFrame {
     private final int IMPORT_FILE = 1;
     private final int EXPORT_FILE = 2;
-   
+     
+    private String className = "";
     themSinhVien sv;
+    xoaSinhVien xoasv;
     private String[] columName = {
         "STT", "MSSV", "Họ Tên", "Giới Tính", "CMND"
     };
@@ -57,7 +59,7 @@ private void initLayout() {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnImport = new javax.swing.JButton();
-        cbLop = new javax.swing.JComboBox();
+        cbLop_MonHoc = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jsvTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -82,11 +84,11 @@ private void initLayout() {
             }
         });
 
-        cbLop.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbLop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
-        cbLop.addActionListener(new java.awt.event.ActionListener() {
+        cbLop_MonHoc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cbLop_MonHoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
+        cbLop_MonHoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLopActionPerformed(evt);
+                cbLop_MonHocActionPerformed(evt);
             }
         });
 
@@ -160,7 +162,7 @@ private void initLayout() {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(cbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbLop_MonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnImport)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,7 +185,7 @@ private void initLayout() {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnImport)
                     .addComponent(btnExport)
-                    .addComponent(cbLop))
+                    .addComponent(cbLop_MonHoc))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnXoaSV)
@@ -201,20 +203,29 @@ private void initLayout() {
            importExportFile("Choose file import", IMPORT_FILE);
     }//GEN-LAST:event_btnImportActionPerformed
 
-    private void cbLopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLopActionPerformed
+    private void cbLop_MonHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLop_MonHocActionPerformed
         // TODO add your handling code here: 
-        if(cbLop.getSelectedItem().toString().equals("--")){
+        if(cbLop_MonHoc.getSelectedItem().toString().equals("--")){
             JOptionPane.showMessageDialog(null, "!!! Chưa Có Danh Sách Lớp");
         } else{
             addDataForTableMonHoc();
         }
         
-    }//GEN-LAST:event_cbLopActionPerformed
+    }//GEN-LAST:event_cbLop_MonHocActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        sv = new themSinhVien();
-        sv.setVisible(true);
+      String lop_MH = String.valueOf(cbLop_MonHoc.getItemAt(cbLop_MonHoc.getSelectedIndex()));
+      String [] item = lop_MH.split("-");
+        if (cbLop_MonHoc.getSelectedIndex() < 0){
+            JOptionPane.showMessageDialog(null, "!!! Vui Lòng Chọn Môn Học");
+        } else {
+                sv = new themSinhVien(item[0], item[1]);
+                sv.setVisible(true);
+        }  
+//        System.out.println("className: " + item[0]);
+//          System.out.println("idMH: " + item[1]);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
@@ -224,6 +235,14 @@ private void initLayout() {
 
     private void jbtnXoaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnXoaSVActionPerformed
         // TODO add your handling code here:
+        String lop_MH = String.valueOf(cbLop_MonHoc.getItemAt(cbLop_MonHoc.getSelectedIndex()));
+      String [] item = lop_MH.split("-");
+        if (cbLop_MonHoc.getSelectedIndex() < 0){
+            JOptionPane.showMessageDialog(null, "!!! Vui Lòng Chọn Môn Học");
+        } else {
+                xoasv = new xoaSinhVien(item[0], item[1]);
+                xoasv.setVisible(true);
+        }  
     }//GEN-LAST:event_jbtnXoaSVActionPerformed
 
     private void jbtnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnThoatActionPerformed
@@ -264,7 +283,7 @@ private void importExportFile(String title, int key) {
             String name = i.getTenLopMH();
             cbModel.addElement(name);   
         }          
-        cbLop.setModel(cbModel);
+        cbLop_MonHoc.setModel(cbModel);
     }
   private void addDataForTableMonHoc(){
         
@@ -416,7 +435,7 @@ private void importExportFile(String title, int key) {
     }
     
     private String getClassNameInComboBox(){
-        String result = cbLop.getSelectedItem().toString();
+        String result = cbLop_MonHoc.getSelectedItem().toString();
         return result;
     }
     
@@ -460,7 +479,7 @@ private void importExportFile(String title, int key) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnImport;
-    private javax.swing.JComboBox cbLop;
+    private javax.swing.JComboBox cbLop_MonHoc;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

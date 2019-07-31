@@ -213,8 +213,13 @@ private void initLayout() {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        sv = new themSinhVien();
-        sv.setVisible(true);
+        String lop = String.valueOf(cbLop.getItemAt(cbLop.getSelectedIndex()));
+        if (cbLop.getSelectedIndex() < 0){
+            JOptionPane.showMessageDialog(null, "!!! Vui Lòng Chọn Môn Học");
+        } else {
+                sv = new themSinhVien(lop);
+                sv.setVisible(true);
+        }  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed

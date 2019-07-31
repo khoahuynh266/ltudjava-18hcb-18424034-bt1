@@ -53,4 +53,7 @@ public class Lop_MonHoc {
     public void themSV(SinhVien sv){
         this.listSV.add(sv);
     }   
+    public void xoaSV(SinhVien sv){
+        this.listSV.remove(sv);
+    }
 }
