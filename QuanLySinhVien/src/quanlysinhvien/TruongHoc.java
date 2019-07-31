@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class TruongHoc {
     private int soLop;
     private ArrayList<LopHoc> listLopHoc = new ArrayList<LopHoc>();
+    private ArrayList<Lop_MonHoc> listLop_MonHoc = new ArrayList<Lop_MonHoc>();
         
     public TruongHoc() {
         this.soLop = 0;
@@ -70,4 +71,54 @@ public class TruongHoc {
             }
         }
     }    
+
+// Lop_MH
+
+        
+    public ArrayList<Lop_MonHoc> getListLopMH(){
+        return this.listLop_MonHoc;
+    }
+    public void setLopMH(ArrayList<Lop_MonHoc> target){
+        this.listLop_MonHoc = target;
+    }
+    
+    public void setListLopMH(ArrayList<Lop_MonHoc> list) {
+        this.listLop_MonHoc = (ArrayList<Lop_MonHoc>) list.clone();
+    }
+    
+    public Lop_MonHoc getLopMH(String tenLop, String maMH){
+        Lop_MonHoc result = new Lop_MonHoc();
+        
+        if(this.listLop_MonHoc.size() > 0){
+            for(Lop_MonHoc item : this.listLop_MonHoc){
+                if(item.isExists(tenLop, maMH))
+                    result = item;
+            }
+        }
+        return result;
+    }
+    
+    public void addSVBySubject(String lop, String idMH ,SinhVien sv) {
+        for (Lop_MonHoc lop_mh : this.listLop_MonHoc) {
+            if (lop_mh.isExists(lop, idMH)) {
+                lop_mh.themSV(sv);
+            }
+        }
+    }
+    
+    public void themLopMH(Lop_MonHoc lh){
+        this.listLop_MonHoc.add(lh);
+    }
+    public void setLopMH(String tenLop, String maMH, Lop_MonHoc _target){
+        for(Lop_MonHoc item : this.listLop_MonHoc){
+            if(item.isExists(tenLop, maMH)){
+                int index = this.listLop_MonHoc.indexOf(item);
+                this.listLop_MonHoc.set(index, _target);
+            }
+        }
+    }
+    public void xoaLopMH(Lop_MonHoc lh){
+        this.listLop_MonHoc.remove(lh);
+    }
 }
+

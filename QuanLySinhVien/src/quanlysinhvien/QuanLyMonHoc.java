@@ -18,6 +18,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import static quanlysinhvien.QuanLyLopHoc.th;
+
 /**
  *
  * @author yumil
@@ -26,7 +28,6 @@ public class QuanLyMonHoc extends javax.swing.JFrame {
     private final int IMPORT_FILE = 1;
     private final int EXPORT_FILE = 2;
    
-    static TruongHoc th = new TruongHoc();
     themSinhVien sv;
     private String[] columName = {
         "STT", "MSSV", "Họ Tên", "Giới Tính", "CMND"
@@ -65,6 +66,7 @@ private void initLayout() {
         jbtnThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Quản lý môn học");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -187,8 +189,8 @@ private void initLayout() {
                     .addComponent(jbtnXoaSV)
                     .addComponent(jButton1))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,7 +206,7 @@ private void initLayout() {
         if(cbLop.getSelectedItem().toString().equals("--")){
             JOptionPane.showMessageDialog(null, "!!! Chưa Có Danh Sách Lớp");
         } else{
-            addDataForTableListSV();
+            addDataForTableMonHoc();
         }
         
     }//GEN-LAST:event_cbLopActionPerformed
@@ -255,33 +257,31 @@ private void importExportFile(String title, int key) {
         }
     }
  private void addDataForComboBoxClass(){
-        ArrayList<LopHoc> listLH = th.getList();
+        ArrayList<Lop_MonHoc> listLH = th.getListLopMH();
         DefaultComboBoxModel cbModel = new DefaultComboBoxModel();
             
-        for (LopHoc i : listLH) {
-            String name = i.getTenLop();
+        for (Lop_MonHoc i : listLH) {
+            String name = i.getTenLopMH();
             cbModel.addElement(name);   
         }          
         cbLop.setModel(cbModel);
     }
-  private void addDataForTableListSV(){
+  private void addDataForTableMonHoc(){
         
         String select = getClassNameInComboBox();
-//        System.out.println("Select: " + select);
-          
-        ArrayList<LopHoc> listLH = th.getList(); 
+        ArrayList<Lop_MonHoc> listLH = th.getListLopMH(); 
         DefaultTableModel tbModel = new DefaultTableModel();
         
         int stt = 1;
         
-        for (LopHoc i : listLH) {
-            if(select.equalsIgnoreCase(i.getTenLop())){
+        for (Lop_MonHoc i : listLH) {
+            if(select.equalsIgnoreCase(i.getTenLopMH())){
                 jsvTable.setVisible(true);
                 tbModel.setColumnIdentifiers(columName);
                                                 
                 // get danh sách sinh viên và hiển thị lên table    
                 ArrayList<SinhVien> listSV = new ArrayList<SinhVien>();
-                listSV = i.getListSinhVien();
+                listSV = i.getListSV();
                 for (SinhVien sv : listSV) {
                     
                     String[] info = new String[5];
@@ -315,20 +315,21 @@ private void importExportFile(String title, int key) {
                 line = buffer.readLine();
 
                 String[] tenLop = line.split(",");
-                LopHoc lh = this.th.getLopHoc(tenLop[0]);
+                String[] Lop_MH = tenLop[0].split("-");
+                
+                Lop_MonHoc lh = th.getLopMH(Lop_MH[0],Lop_MH[1]);
                 
                 boolean checkLopHoc = true;
-                if (lh.getTenLop().equals("")) {
+                if (lh.getTenLopMH().equals("")) {
                     checkLopHoc = false;
-                    lh.setTenLop(tenLop[0]);
+                    lh.setTenLopMH(tenLop[0]);
                 }
-                
-                if (checkLopHoc == true) {
-                    this.th.setLopHoc(lh, line);
+               if (checkLopHoc == true) {
+                   th.xoaLopMH(lh);
                     JOptionPane.showMessageDialog(null, "!!! Class Already Exists");                    
-                } else {
-                    this.th.setSoLop(this.th.getsoLop() + 1);
-                    this.th.themLop(lh);
+                       Lop_MonHoc lmh = new Lop_MonHoc();
+                    lmh.setTenLopMH(tenLop[0]);
+                       
                     //line = buffer.readLine()+1 ;
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
@@ -347,9 +348,9 @@ private void importExportFile(String title, int key) {
                         sv.setCMND(info[4]);
                     
                         sv.setGioiTinh(gt);
-                        lh.themSinhVien(sv);
+                        lh.themSV(sv);
                     }
-                    
+                    th.themLopMH(lmh);
                 }
                 
                 buffer.close();

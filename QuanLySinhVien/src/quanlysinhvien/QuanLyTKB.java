@@ -26,8 +26,8 @@ import static quanlysinhvien.QuanLyLopHoc.th;
 public class QuanLyTKB extends javax.swing.JFrame {
     private final int IMPORT_FILE = 1;
     private final int EXPORT_FILE = 2;
-   
-    static TruongHoc th = new TruongHoc();
+    
+    private String className = "";
     private String[] columName = {
         "STT", "Mã môn", "Tên môn", "Phòng học"
     };
@@ -64,6 +64,7 @@ private void initLayout() {
         jbtnThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Quản lý TKB");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -257,45 +258,53 @@ private void importExportFile(String title, int key) {
             }           
         }          
     }
- private void readFile(File file) {
+  private void readFile(File file) {
         try {
             try (FileReader reader = new FileReader(file)) {
                 BufferedReader buffer = new BufferedReader(reader);
-               
                 String line;
                 line = buffer.readLine();
-
                 String[] tenLop = line.split(",");
+                LopHoc lh = th.getLopHoc(tenLop[0]);
                 
-                LopHoc lh = this.th.getLopHoc(tenLop[0]);
-                boolean checkLopHoc = true;
-                if (lh.getTenLop().equals("")) {
-                    checkLopHoc = false;
-                    lh.setTenLop(tenLop[0]);
-                } if (checkLopHoc == true) {
-                    this.th.setLopHoc(lh, line);
-                    JOptionPane.showMessageDialog(null, "!!! Lớp đã tồn tại");                    
-                } else {
-                    this.th.setSoLop(this.th.getsoLop() + 1);
-                    this.th.themLop(lh);
-                    
-                    
+                ArrayList<Lop_MonHoc> class_subject = new ArrayList<Lop_MonHoc>();
+                
+               System.out.println("tenLop[0]: " +tenLop[0]);
+               
+                if(tenLop[0]!=null)
+                        {                       
+                    // get tkb
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
                         
                         MonHoc monHoc = new MonHoc(info[1], info[2]);
-                        ThoiKhoaBieu tKB = new ThoiKhoaBieu(monHoc, info[3]);
+                        ThoiKhoaBieu TKB = new ThoiKhoaBieu(monHoc, info[3]);
                         
-                        lh.themTKB(tKB);
-                }
-                }
+                        // Add TKB vào lớp học
+                        lh.themTKB(TKB);
+                        className = tenLop[0] + "-" + info[1];
+                        Lop_MonHoc Lop_MH = new Lop_MonHoc();
+                        Lop_MH.setTenLopMH(className);
+                        Lop_MH.setMaMonHoc(info[1]);
+                        Lop_MH.setListSV(lh.getListSinhVien());
+                        
+                        class_subject.add(Lop_MH);
+                    }
+                    th.setListLopMH(class_subject);
+                    th.setLopHoc(lh, tenLop[0]);
+                
                 buffer.close();
+                } else {
+                    JOptionPane.showMessageDialog(null, "!!! Thời Khóa Biểu Sai Lớp");
                 }
-                  initLayout();
-        }
-            catch (Exception e) {
+                
+                System.out.println(th.getListLopMH().size());
+            }
+            initLayout();
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error to open file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
      
