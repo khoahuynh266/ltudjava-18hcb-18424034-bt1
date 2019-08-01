@@ -87,11 +87,24 @@ public class TruongHoc {
     }
     
     public Lop_MonHoc getLopMH(String tenLop, String maMH){
+        
         Lop_MonHoc result = new Lop_MonHoc();
         
         if(this.listLop_MonHoc.size() > 0){
             for(Lop_MonHoc item : this.listLop_MonHoc){
                 if(item.isExists(tenLop, maMH))
+                    result = item;
+            }
+        }
+        return result;
+    }
+     public Lop_MonHoc getLopMH(String tenLop_MH){
+        
+        Lop_MonHoc result = new Lop_MonHoc();
+        String[] a = tenLop_MH.split("-");
+        if(this.listLop_MonHoc.size() > 0){
+            for(Lop_MonHoc item : this.listLop_MonHoc){
+                if(item.isExists(a[0], a[1]))
                     result = item;
             }
         }

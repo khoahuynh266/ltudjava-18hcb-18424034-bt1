@@ -29,6 +29,12 @@ public class SinhVien {
         this.CMND = CMND;
     }
     
+     public SinhVien(String MSSV, String hoTen){
+        this.MSSV = MSSV;
+        this.hoTen = hoTen;
+        this.gioiTinh = -1;
+        this.CMND = "";
+    }
     public String getMSSV(){
         return this.MSSV;
     }
@@ -56,6 +62,13 @@ public class SinhVien {
     }
     public void setCMND(String cmnd) {
         this.CMND = cmnd;
+    }
+    public boolean isExistsSV(String mssv) {
+        boolean result = false;
+        if(this.MSSV.equalsIgnoreCase(mssv)) {
+            result = true;
+        }
+        return result;
     }
 }
 
