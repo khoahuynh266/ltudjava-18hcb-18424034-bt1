@@ -105,10 +105,10 @@ public class TruongHoc {
      public Lop_MonHoc getLopMH(String tenLop_MH){
         
         Lop_MonHoc result = new Lop_MonHoc();
-        String[] a = tenLop_MH.split("-");
         if(this.listLop_MonHoc.size() > 0){
             for(Lop_MonHoc item : this.listLop_MonHoc){
-                if(item.isExists(a[0], a[1]))
+              
+                if(item.isExists(tenLop_MH))
                     result = item;
             }
         }
@@ -126,11 +126,11 @@ public class TruongHoc {
     public void themLopMH(Lop_MonHoc lh){
         this.listLop_MonHoc.add(lh);
     }
-    public void setLopMH(String tenLop, String maMH, Lop_MonHoc _target){
+    public void setLopMH(String tenLop ,Lop_MonHoc lh){
         for(Lop_MonHoc item : this.listLop_MonHoc){
-            if(item.isExists(tenLop, maMH)){
+            if(item.isExists(tenLop)){
                 int index = this.listLop_MonHoc.indexOf(item);
-                this.listLop_MonHoc.set(index, _target);
+                this.listLop_MonHoc.set(index, lh);
             }
         }
     }

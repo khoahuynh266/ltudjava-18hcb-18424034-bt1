@@ -19,6 +19,9 @@ public class Lop_MonHoc {
     public Lop_MonHoc(){
         this.tenLopMH = "";
     }
+     public Lop_MonHoc(String ten){
+        this.tenLopMH = ten;
+    }
     public String getTenLopMH(){
         return this.tenLopMH;
     }
@@ -48,7 +51,12 @@ public class Lop_MonHoc {
         }
         return false;
     }
-    
+      public boolean isExists(String name) {
+        if (this.tenLopMH.equalsIgnoreCase(name)) {
+            return true;
+        }
+        return false;
+    }
     public void themSV(SinhVien sv){
         this.listSV.add(sv);
     }   

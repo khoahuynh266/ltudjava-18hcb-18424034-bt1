@@ -355,7 +355,6 @@ private void importExportFile(String title, int key) {
                 } else {
                     this.th.setSoLop(this.th.getsoLop() + 1);
                     this.th.themLop(lh);
-                    //line = buffer.readLine()+1 ;
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
                         

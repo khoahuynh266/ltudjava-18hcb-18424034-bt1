@@ -8,11 +8,14 @@ package quanlysinhvien;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -26,8 +29,7 @@ import static quanlysinhvien.QuanLyLopHoc.th;
  */
 public class QuanLyMonHoc extends javax.swing.JFrame {
     private final int IMPORT_FILE = 1;
-    private final int EXPORT_FILE = 2;
-    private final int IMPORT_FILE_SCORE = 3;
+    private final int IMPORT_FILE_SCORE = 2;
     themSinhVien sv;
     xoaSinhVien xoasv;
     private String[] columName = {
@@ -68,7 +70,6 @@ private void initLayout() {
         jLabel2 = new javax.swing.JLabel();
         cbLop_MonHoc = new javax.swing.JComboBox();
         btnImport = new javax.swing.JButton();
-        btnExport = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jsvTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -153,13 +154,6 @@ private void initLayout() {
             }
         });
 
-        btnExport.setText("Export");
-        btnExport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExportActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setAutoscrolls(true);
 
         jsvTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -196,19 +190,17 @@ private void initLayout() {
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbtnXoaSV)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnExport))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jbtnXoaSV))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbLop_MonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(77, 77, 77)
                                 .addComponent(btnImport)))
-                        .addGap(28, 28, 28))))
+                        .addGap(28, 290, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(224, 224, 224)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,11 +216,9 @@ private void initLayout() {
                     .addComponent(cbLop_MonHoc, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnImport))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jbtnXoaSV))
-                    .addComponent(btnExport))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jbtnXoaSV))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -408,19 +398,14 @@ private void initLayout() {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
-        // TODO add your handling code here:
-        importExportFile("Export File", EXPORT_FILE);
-    }//GEN-LAST:event_btnExportActionPerformed
-
     private void jbtnXoaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnXoaSVActionPerformed
         // TODO add your handling code here:
         String lop_MH = String.valueOf(cbLop_MonHoc.getItemAt(cbLop_MonHoc.getSelectedIndex()));
-      String [] item = lop_MH.split("-");
+       // System.out.printf(lop_MH);
         if (cbLop_MonHoc.getSelectedIndex() < 0){
             JOptionPane.showMessageDialog(null, "!!! Vui Lòng Chọn Môn Học");
         } else {
-                xoasv = new xoaSinhVien(item[0], item[1]);
+                xoasv = new xoaSinhVien(lop_MH);
                 xoasv.setVisible(true);
         }  
     }//GEN-LAST:event_jbtnXoaSVActionPerformed
@@ -445,12 +430,13 @@ private void initLayout() {
        
         String valueComboBox = cbLop_MonHoc.getSelectedItem().toString();  
          String[] a = valueComboBox.split("-");
+         
          Lop_MonHoc lop_MH = th.getLopMH(valueComboBox);
         
          table.setColumnIdentifiers(columnNameDiem);
         
         ArrayList<Diem> listDiem = lop_MH.getListDiem();
-        System.out.print("LopMH :" +lop_MH.getTenLopMH().toString());
+        
         int stt = 1;
         if(listDiem.size() > 0){
             for(Diem item : listDiem){
@@ -484,9 +470,6 @@ private void importExportFile(String title, int key) {
             case IMPORT_FILE:
                 choose = j.showOpenDialog(null);
                 break;
-            case EXPORT_FILE:
-                choose = j.showSaveDialog(null);
-                break;
              case IMPORT_FILE_SCORE:
                choose = j.showOpenDialog(null);
                 break;
@@ -497,9 +480,6 @@ private void importExportFile(String title, int key) {
             switch (key) {
                 case IMPORT_FILE:
                     readFile(f);
-                    break;
-                case EXPORT_FILE:
-                    writeFile(f);
                     break;
                  case IMPORT_FILE_SCORE:
                     readFileScore(f);
@@ -558,29 +538,38 @@ private void importExportFile(String title, int key) {
         }
     }
   
-    private void readFile(File file) {
-         try {
+  private void readFile(File file) {
+        try {
             try (FileReader reader = new FileReader(file)) {
                 BufferedReader buffer = new BufferedReader(reader);
+
                 String line;
                 line = buffer.readLine();
+                 
                 String[] tenLop = line.split(",");
+              //  System.out.printf(tenLop[0]);
                 
-                ArrayList<Lop_MonHoc>  listLop_MonHoc = th.getListLopMH();
-            
-                String[] Lop_MH = tenLop[0].split("-");
-               
-                   Lop_MonHoc lmh = new Lop_MonHoc();
-                    lmh.setTenLopMH(tenLop[0]);
-                       
-                    //line = buffer.readLine()+1 ;
+                Lop_MonHoc lh = th.getLopMH(tenLop[0]);
+              //   System.out.printf(lh.getTenLopMH());
+                 boolean checkLopHoc = true;
+                    if (lh.getTenLopMH().equals("")) {
+                        checkLopHoc = false;
+                        lh.setTenLopMH(tenLop[0]);
+                    }
+                if (checkLopHoc == true) {
+                    lh.getListSV().clear();
+                    th.setLopMH(tenLop[0], lh);
+                    JOptionPane.showMessageDialog(null, "!!! Class Already Exists");                    
+                } else {
+                    th.themLopMH(lh);
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
                         
                         SinhVien sv = new SinhVien();
                         sv.setMSSV(info[1]);
                         sv.setTen(info[2]);
-                           int gt = -1;
+                        sv.setCMND(info[4]);
+                        int gt = -1;
 
                         if (info[3].equalsIgnoreCase("Nam")) {
                             gt = 1;
@@ -588,125 +577,52 @@ private void importExportFile(String title, int key) {
                         if (info[3].equalsIgnoreCase("Nữ")) {
                             gt = 0;
                         }
-                        sv.setCMND(info[4]);
-                    
+
                         sv.setGioiTinh(gt);
-                        lmh.themSV(sv);
-                    }
-                    boolean bool = true;
-                for(Lop_MonHoc l : listLop_MonHoc)
-                {
-                    if(l.isExists(Lop_MH[0], Lop_MH[0]))
-                    {
-                         int index = listLop_MonHoc.indexOf(l);
-                         listLop_MonHoc.set(index, l);
-                         bool = false;
+                        lh.themSV(sv);
                     }
                 }
-                if(bool = true)
-                {
-                    th.themLopMH(lmh);
-                }
-                
                 buffer.close();
             }
                    initLayout();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error to open file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
+           
         }
 
-    }
-
-    private void writeFile(File file) {
-        try{            
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
-                        
-            String tenLop = getClassNameInComboBox();
-            LopHoc lop = th.getLopHoc(tenLop);
-            
-            writer.append(tenLop);
-            writer.append('\n');
-            
-            writer.append("STT,");
-            writer.append(columName[1]);
-            writer.append(",");
-            writer.append(columName[2]);
-            writer.append(",");
-            writer.append(columName[3]);
-            writer.append(",");
-            writer.append(columName[4]);
-            writer.append('\n');
-            ArrayList<SinhVien> dsSV = new ArrayList<SinhVien>();
-            dsSV = lop.getListSinhVien();
-            
-            if (dsSV.size() > 0) {
-                int stt = 1;
-                // Lấy danh sách học sinh trong lớp
-                for (SinhVien sv : dsSV) {
-                    writer.append(Integer.toString(stt) + ',');                    
-                    writer.append(sv.getMSSV());
-                    writer.append(',');
-                    writer.append(sv.getTen());
-                    writer.append(',');
-                    if (sv.getGioiTinh() == 1) {
-                        writer.append("Nam");
-                    } else {
-                        writer.append("Nữ");
-                    }
-                    writer.append(',');
-                    writer.append(sv.getCMND());
-                    writer.append('\n');
-                    stt++;
-                }
-            }
-            writer.close();
-             JOptionPane.showMessageDialog(null, "Export File!", "Success", JOptionPane.INFORMATION_MESSAGE);
-   
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Error to export file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
+  }
      private void readFileScore(File file) {
         try{
-            try (FileReader reader = new FileReader(file)) {
+            try ( FileReader reader = new FileReader(file)){ 
             BufferedReader buffer = new BufferedReader(reader);
 
             String line;
             line = buffer.readLine();
+            String valueComboBox = cbLop_MonHoc.getSelectedItem().toString();
+            Lop_MonHoc lop_MonHoc = th.getLopMH(valueComboBox);
             
-             String[] tenLop = line.split(",");
-                String[] Lop_MH = tenLop[0].split("-");
-                Lop_MonHoc lh = th.getLopMH(tenLop[0]);
-                ArrayList<Diem> listDiem = lh.getListDiem();
+           //  System.out.print("LOP: "+lop_MonHoc.getTenLopMH());
+            ArrayList<Diem> listDiem = lop_MonHoc.getListDiem();
             listDiem.clear();
             
             while((line = buffer.readLine()) != null){
-               System.out.println("listDiem: " + listDiem.size());
-                String[] tableDiem = line.split(",");
+                String[] diem = line.split(",");
                  
                 Diem diemSV = new Diem();
-                SinhVien s = new SinhVien(tableDiem[0], tableDiem[1]);
-                System.out.println(tableDiem[0]);
+                SinhVien s = new SinhVien(diem[0], diem[1]);
                 diemSV.setSV(s);                
-                diemSV.setDiemGK(Float.parseFloat(tableDiem[2]));
-                diemSV.setDiemCK(Float.parseFloat(tableDiem[3]));
-                diemSV.setDiemKhac(Float.parseFloat(tableDiem[4]));
-                diemSV.setDiemTong(Float.parseFloat(tableDiem[5]));
-
+                diemSV.setDiemGK(Float.parseFloat(diem[2]));
+                diemSV.setDiemCK(Float.parseFloat(diem[3]));
+                diemSV.setDiemKhac(Float.parseFloat(diem[4]));
+                diemSV.setDiemTong(Float.parseFloat(diem[5]));
                 listDiem.add(diemSV);
             }
-            lh.setListDiemSV(listDiem);
-            th.setLopMH(Lop_MH[0],Lop_MH[1], lh);
-              System.out.println(Lop_MH[0]);
-                System.out.println(Lop_MH[1]);
+            lop_MonHoc.setListDiemSV(listDiem);
+            th.setLopMH(valueComboBox, lop_MonHoc);
             buffer.close();
-             System.out.print(tenLop[0]);
-            }
-        }catch(Exception e) {
+        }
+        }
+        catch(Exception e) {
             JOptionPane.showMessageDialog(null, "Error to export file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }
@@ -754,7 +670,6 @@ private void importExportFile(String title, int key) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnExport;
     private javax.swing.JButton btnImport;
     private javax.swing.JComboBox cbLop_MonHoc;
     private javax.swing.JButton jButton1;

@@ -21,7 +21,11 @@ public class SinhVien {
         this.gioiTinh = -1;
         this.CMND = "";
     }
-    
+    public SinhVien(String MSSV, String hoTen, String CMND){
+        this.MSSV = MSSV;
+        this.hoTen = hoTen;
+        this.CMND = CMND;
+    }
     public SinhVien(String MSSV, String hoTen, int gioiTinh, String CMND){
         this.MSSV = MSSV;
         this.hoTen = hoTen;
