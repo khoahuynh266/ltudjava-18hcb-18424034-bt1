@@ -28,8 +28,6 @@ public class QuanLyMonHoc extends javax.swing.JFrame {
     private final int IMPORT_FILE = 1;
     private final int EXPORT_FILE = 2;
     private final int IMPORT_FILE_SCORE = 3;
-     
-    private String className = "";
     themSinhVien sv;
     xoaSinhVien xoasv;
     private String[] columName = {
@@ -559,28 +557,20 @@ private void importExportFile(String title, int key) {
             }            
         }
     }
+  
     private void readFile(File file) {
-        try {
+         try {
             try (FileReader reader = new FileReader(file)) {
                 BufferedReader buffer = new BufferedReader(reader);
-
                 String line;
                 line = buffer.readLine();
-
                 String[] tenLop = line.split(",");
+                
+                ArrayList<Lop_MonHoc>  listLop_MonHoc = th.getListLopMH();
+            
                 String[] Lop_MH = tenLop[0].split("-");
-                
-                Lop_MonHoc lh = th.getLopMH(Lop_MH[0],Lop_MH[1]);
-                
-                boolean checkLopHoc = true;
-                if (lh.getTenLopMH().equals("")) {
-                    checkLopHoc = false;
-                    lh.setTenLopMH(tenLop[0]);
-                }
-               if (checkLopHoc == true) {
-                   th.xoaLopMH(lh);
-                    JOptionPane.showMessageDialog(null, "!!! Class Already Exists");                    
-                       Lop_MonHoc lmh = new Lop_MonHoc();
+               
+                   Lop_MonHoc lmh = new Lop_MonHoc();
                     lmh.setTenLopMH(tenLop[0]);
                        
                     //line = buffer.readLine()+1 ;
@@ -601,8 +591,20 @@ private void importExportFile(String title, int key) {
                         sv.setCMND(info[4]);
                     
                         sv.setGioiTinh(gt);
-                        lh.themSV(sv);
+                        lmh.themSV(sv);
                     }
+                    boolean bool = true;
+                for(Lop_MonHoc l : listLop_MonHoc)
+                {
+                    if(l.isExists(Lop_MH[0], Lop_MH[0]))
+                    {
+                         int index = listLop_MonHoc.indexOf(l);
+                         listLop_MonHoc.set(index, l);
+                         bool = false;
+                    }
+                }
+                if(bool = true)
+                {
                     th.themLopMH(lmh);
                 }
                 

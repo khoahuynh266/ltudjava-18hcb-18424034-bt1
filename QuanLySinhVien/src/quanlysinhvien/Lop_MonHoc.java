@@ -22,7 +22,6 @@ public class Lop_MonHoc {
     public String getTenLopMH(){
         return this.tenLopMH;
     }
-    
     public void setTenLopMH(String name){
         this.tenLopMH = name;
     }

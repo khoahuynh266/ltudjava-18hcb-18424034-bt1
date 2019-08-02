@@ -26,7 +26,7 @@ import static quanlysinhvien.QuanLyLopHoc.th;
 public class QuanLyTKB extends javax.swing.JFrame {
     private final int IMPORT_FILE = 1;
     private final int EXPORT_FILE = 2;
-    
+
     private String className = "";
     private String[] columName = {
         "STT", "Mã môn", "Tên môn", "Phòng học"
@@ -38,9 +38,11 @@ public class QuanLyTKB extends javax.swing.JFrame {
     public QuanLyTKB() {
         initComponents();
          initLayout();
+        
     }
 private void initLayout() {        
         jtableTKB.setVisible(false);
+       
         if (th.getsoLop() > 0) {
             addDataForComboBoxClass();
         } }
@@ -62,6 +64,7 @@ private void initLayout() {
         jtableTKB = new javax.swing.JTable();
         jlableNotify = new javax.swing.JLabel();
         jbtnThoat = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý TKB");
@@ -117,24 +120,17 @@ private void initLayout() {
             }
         });
 
+        jButton1.setText("load");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnImport)
-                .addGap(128, 128, 128))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(243, 243, 243)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtnThoat)
-                .addGap(57, 57, 57))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(74, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,6 +140,23 @@ private void initLayout() {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jlableNotify, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(213, 213, 213))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(127, 127, 127)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtnThoat)
+                        .addGap(57, 57, 57))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnImport)
+                        .addGap(128, 128, 128))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +164,8 @@ private void initLayout() {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnThoat))
+                    .addComponent(jbtnThoat)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -190,6 +204,11 @@ private void initLayout() {
         this.dispose();
         new GiaoVu().setVisible(true);
     }//GEN-LAST:event_jbtnThoatActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        readListFile();
+    }//GEN-LAST:event_jButton1ActionPerformed
 private void importExportFile(String title, int key) {
         JFileChooser j = new JFileChooser();
         j.setDialogTitle(title);
@@ -215,7 +234,7 @@ private void importExportFile(String title, int key) {
             }
         }
     }
- private void addDataForComboBoxClass(){
+ private void addDataForComboBoxClass(){ // add data cho cbb 
         ArrayList<LopHoc> listLH = th.getList();
         DefaultComboBoxModel cbModel = new DefaultComboBoxModel();
             
@@ -231,14 +250,16 @@ private void importExportFile(String title, int key) {
         String select = getClassNameInComboBox();
           
         ArrayList<LopHoc> listLH = th.getList(); 
-         DefaultTableModel tblTKB = new DefaultTableModel();
+        DefaultTableModel tblTKB = new DefaultTableModel();
         
         for (LopHoc i : listLH) {                   
-                   jtableTKB.setVisible(true);
+                jtableTKB.setVisible(true);
                 tblTKB.setColumnIdentifiers(columName);
+                
                 int stt = 1;
                 ArrayList<ThoiKhoaBieu> listSchedule = i.getTKB();
-                if(listSchedule.size() > 0){
+                if(listSchedule.size() > 0 && select.equalsIgnoreCase(i.getTenLop())){
+                System.out.println(listSchedule.size());
                 for(ThoiKhoaBieu item : listSchedule){
                     
                     String[] info = new String[4];
@@ -251,12 +272,16 @@ private void importExportFile(String title, int key) {
                     stt++;
                 }                
                 jtableTKB.setModel(tblTKB);
+                 jlableNotify.setText("");
             } else {
+                if(listSchedule.size() <= 0){
                 jlableNotify.setText("Chưa Có Thời Khóa Biểu!!!!");
                 tblTKB.setColumnIdentifiers(columName);
                 jtableTKB.setModel(tblTKB);
-            }           
-        }          
+                    }            
+        }  
+        }
+        
     }
   private void readFile(File file) {
         try {
@@ -268,19 +293,17 @@ private void importExportFile(String title, int key) {
                 LopHoc lh = th.getLopHoc(tenLop[0]);
                 
                 ArrayList<Lop_MonHoc> class_subject = new ArrayList<Lop_MonHoc>();
-                
-               System.out.println("tenLop[0]: " +tenLop[0]);
+            
+                System.out.println("tenLop[0]: " + tenLop[0]);
                
                 if(tenLop[0]!=null)
                         {                       
-                    // get tkb
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
                         
                         MonHoc monHoc = new MonHoc(info[1], info[2]);
                         ThoiKhoaBieu TKB = new ThoiKhoaBieu(monHoc, info[3]);
                         
-                        // Add TKB vào lớp học
                         lh.themTKB(TKB);
                         className = tenLop[0] + "-" + info[1];
                         Lop_MonHoc Lop_MH = new Lop_MonHoc();
@@ -289,10 +312,9 @@ private void importExportFile(String title, int key) {
                         Lop_MH.setListSV(lh.getListSinhVien());
                         
                         class_subject.add(Lop_MH);
+                        System.out.println("list " + class_subject.size());
                     }
-                    th.setListLopMH(class_subject);
-                    th.setLopHoc(lh, tenLop[0]);
-                
+                    th.ThemListLopMH(class_subject);
                 buffer.close();
                 } else {
                     JOptionPane.showMessageDialog(null, "!!! Thời Khóa Biểu Sai Lớp");
@@ -300,12 +322,19 @@ private void importExportFile(String title, int key) {
                 
                 System.out.println(th.getListLopMH().size());
             }
-            initLayout();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error to open file: " + e.toString(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
+    private void readListFile() {
+     String filePath = new File("").getAbsolutePath(); 
+            File dir = new File(filePath +"\\src\\data\\TKB");
+            File[] txtFiles = dir.listFiles(new docDSfile());
+             for (File f : txtFiles) {
+                 readFile(f);
+    }
+ }
 
      
     private String getClassNameInComboBox(){
@@ -352,6 +381,7 @@ private void importExportFile(String title, int key) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnImport;
     private javax.swing.JComboBox cbLop;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

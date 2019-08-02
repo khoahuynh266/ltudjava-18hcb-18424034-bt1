@@ -82,8 +82,12 @@ public class TruongHoc {
         this.listLop_MonHoc = target;
     }
     
+    public void ThemListLopMH(ArrayList<Lop_MonHoc> list) {
+        this.listLop_MonHoc.addAll((ArrayList<Lop_MonHoc>) list.clone());
+    }
+    
     public void setListLopMH(ArrayList<Lop_MonHoc> list) {
-        this.listLop_MonHoc = (ArrayList<Lop_MonHoc>) list.clone();
+        this.listLop_MonHoc= (ArrayList<Lop_MonHoc>) list.clone();
     }
     
     public Lop_MonHoc getLopMH(String tenLop, String maMH){
