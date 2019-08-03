@@ -46,7 +46,7 @@ public class Lop_MonHoc {
     }
     
     public boolean isExists(String name, String id) {
-        if (this.tenLopMH.equalsIgnoreCase(name) && this.maMonHoc.equalsIgnoreCase(id)) {
+        if (this.tenLopMH.equalsIgnoreCase(name+"-"+id) && this.maMonHoc.equalsIgnoreCase(id)) {
             return true;
         }
         return false;

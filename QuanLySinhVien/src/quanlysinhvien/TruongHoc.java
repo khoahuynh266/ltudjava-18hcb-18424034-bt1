@@ -93,9 +93,7 @@ public class TruongHoc {
     }
     
     public Lop_MonHoc getLopMH(String tenLop, String maMH){
-        
         Lop_MonHoc result = new Lop_MonHoc();
-        
         if(this.listLop_MonHoc.size() > 0){
             for(Lop_MonHoc item : this.listLop_MonHoc){
                 if(item.isExists(tenLop, maMH))
@@ -153,7 +151,8 @@ public class TruongHoc {
     public ArrayList<Lop_MonHoc> getListLopMonHoc(String tenLop) {
         ArrayList<Lop_MonHoc> result = new ArrayList<Lop_MonHoc>();
         for(Lop_MonHoc item : this.listLop_MonHoc) {
-            if(item.getTenLopMH().equals(tenLop)) {
+            String [] i = item.getTenLopMH().split("-");
+            if(i[0].equals(tenLop)) {
                 result.add(item);
             }
         }
