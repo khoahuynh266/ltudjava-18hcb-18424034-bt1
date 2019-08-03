@@ -20,6 +20,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static quanlysinhvien.Login.taiKhoan;
+import static quanlysinhvien.GiaoVu.th;
 /**
  *
  * @author yumil
@@ -28,7 +30,6 @@ public class QuanLyLopHoc extends javax.swing.JFrame {
     private final int IMPORT_FILE = 1;
     private final int EXPORT_FILE = 2;
    
-    static TruongHoc th = new TruongHoc();
     themSinhVien sv;
     private String[] columName = {
         "STT", "MSSV", "Họ Tên", "Giới Tính", "CMND"
@@ -55,42 +56,23 @@ private void initLayout() {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        btnImport = new javax.swing.JButton();
-        cbLop = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jsvTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        btnExport = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jbtnThoat = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        btnQLMH = new javax.swing.JButton();
+        btnQLTKB = new javax.swing.JButton();
+        btnImport = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
+        cbLop = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý lớp học");
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Quản lý lớp học");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Danh sách lớp");
-
-        btnImport.setText("Import");
-        btnImport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImportActionPerformed(evt);
-            }
-        });
-
-        cbLop.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cbLop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
-        cbLop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLopActionPerformed(evt);
-            }
-        });
 
         jScrollPane1.setAutoscrolls(true);
 
@@ -111,11 +93,55 @@ private void initLayout() {
         jScrollPane1.setViewportView(jsvTable);
         jsvTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButton1.setText("Thêm Sinh Viên");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnThoat.setText("Thoát");
+        jbtnThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtnThoatActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 51)));
+
+        btnQLMH.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnQLMH.setText("Quản Lý Môn Học");
+        btnQLMH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLMHActionPerformed(evt);
+            }
+        });
+
+        btnQLTKB.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnQLTKB.setText("Quản Lý TKB");
+        btnQLTKB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLTKBActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnQLMH, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                    .addComponent(btnQLTKB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(btnQLTKB, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnQLMH, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnImport.setText("Import");
+        btnImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImportActionPerformed(evt);
             }
         });
 
@@ -126,19 +152,70 @@ private void initLayout() {
             }
         });
 
-        jButton2.setText("Quản lý TKB");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cbLop.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cbLop.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--" }));
+        cbLop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cbLopActionPerformed(evt);
             }
         });
 
-        jbtnThoat.setText("Thoát");
-        jbtnThoat.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton1.setText("Thêm Sinh Viên");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnThoatActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Danh sách lớp");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(cbLop, 0, 1, Short.MAX_VALUE)
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnImport)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExport)))
+                .addGap(61, 61, 61)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnImport)
+                            .addComponent(btnExport))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(cbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Quản lý lớp học");
 
         jButton3.setText("Load");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -152,56 +229,42 @@ private void initLayout() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 29, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addGap(127, 127, 127)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbtnThoat))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 668, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbLop, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnImport)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExport)
-                        .addGap(53, 53, 53))))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, 0))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(160, 160, 160)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(204, 204, 204)
+                                .addComponent(jbtnThoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2)
-                        .addComponent(jbtnThoat))
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnImport)
-                        .addComponent(btnExport))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbLop)
-                        .addGap(2, 2, 2)))
-                .addComponent(jButton1)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jbtnThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -238,12 +301,6 @@ private void initLayout() {
         importExportFile("Export File", EXPORT_FILE);
     }//GEN-LAST:event_btnExportActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-         new QuanLyTKB().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jbtnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnThoatActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -255,7 +312,19 @@ private void initLayout() {
          readListFile();
          addDataForTableListSV();
     }//GEN-LAST:event_jButton3ActionPerformed
-private void importExportFile(String title, int key) {
+
+    private void btnQLTKBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLTKBActionPerformed
+        // TODO add your handling code here:
+        new QuanLyTKB().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnQLTKBActionPerformed
+
+    private void btnQLMHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLMHActionPerformed
+        // TODO add your handling code here:
+        new QuanLyMonHoc().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnQLMHActionPerformed
+      private void importExportFile(String title, int key) {
         JFileChooser j = new JFileChooser();
         j.setDialogTitle(title);
         int choose = -1;
@@ -341,7 +410,7 @@ private void importExportFile(String title, int key) {
                 line = buffer.readLine();
 
                 String[] tenLop = line.split(",");
-                LopHoc lh = this.th.getLopHoc(tenLop[0]);
+                LopHoc lh = th.getLopHoc(tenLop[0]);
                 
                 boolean checkLopHoc = true;
                 if (lh.getTenLop().equals("")) {
@@ -350,11 +419,11 @@ private void importExportFile(String title, int key) {
                 }
                 
                 if (checkLopHoc == true) {
-                    this.th.setLopHoc(lh, line);
+                    th.setLopHoc(lh, line);
                     JOptionPane.showMessageDialog(null, "!!! Class Already Exists");                    
                 } else {
-                    this.th.setSoLop(this.th.getsoLop() + 1);
-                    this.th.themLop(lh);
+                    th.setSoLop(th.getsoLop() + 1);
+                    th.themLop(lh);
                     while ((line = buffer.readLine()) != null) {
                         String[] info = line.split(",");
                         
@@ -373,10 +442,13 @@ private void importExportFile(String title, int key) {
 
                         sv.setGioiTinh(gt);
                         lh.themSinhVien(sv);
+                        
+                        if(!th.isExistedsAccount(info[1])){
+                            TaiKhoan a = new TaiKhoan(info[1], info[1], tenLop[0], 0);
+                            th.getListTaiKhoan().add(a);
+                             }
                     }
-                    
                 }
-                
                 buffer.close();
             }
                    initLayout();
@@ -493,12 +565,15 @@ private void importExportFile(String title, int key) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExport;
     private javax.swing.JButton btnImport;
+    private javax.swing.JButton btnQLMH;
+    private javax.swing.JButton btnQLTKB;
     private javax.swing.JComboBox cbLop;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnThoat;
     private javax.swing.JTable jsvTable;

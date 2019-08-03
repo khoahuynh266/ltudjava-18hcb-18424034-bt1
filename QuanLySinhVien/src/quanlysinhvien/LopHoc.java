@@ -47,7 +47,17 @@ public class LopHoc {
         this.tkb = listTKB;
     }
     
-    public void themTKB(ThoiKhoaBieu _tkb){
-        this.tkb.add(_tkb);
+    public void themTKB(ThoiKhoaBieu tkb){
+        this.tkb.add(tkb);
+    }
+    
+    public SinhVien getSinhVien(String mssv) {
+        SinhVien sv = null;
+        for(SinhVien item : this.listSinhVien) {
+            if(item.isExistsSV(mssv)) {
+                sv = item;
+            }
+        }
+        return sv;
     }
 }

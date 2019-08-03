@@ -15,9 +15,11 @@ public class TruongHoc {
     private int soLop;
     private ArrayList<LopHoc> listLopHoc = new ArrayList<LopHoc>();
     private ArrayList<Lop_MonHoc> listLop_MonHoc = new ArrayList<Lop_MonHoc>();
-        
+    private ArrayList<TaiKhoan> listTaiKhoan = new ArrayList<TaiKhoan>();    
     public TruongHoc() {
         this.soLop = 0;
+        TaiKhoan a = new TaiKhoan("giaovu", "giaovu", 1);
+        this.listTaiKhoan.add(a);
     }
     
     public int getsoLop(){
@@ -106,8 +108,8 @@ public class TruongHoc {
         
         Lop_MonHoc result = new Lop_MonHoc();
         if(this.listLop_MonHoc.size() > 0){
-            for(Lop_MonHoc item : this.listLop_MonHoc){
-              
+            for(Lop_MonHoc item : this.listLop_MonHoc)
+            {
                 if(item.isExists(tenLop_MH))
                     result = item;
             }
@@ -136,6 +138,36 @@ public class TruongHoc {
     }
     public void xoaLopMH(Lop_MonHoc lh){
         this.listLop_MonHoc.remove(lh);
+    }
+    
+    // Tai khoan
+    
+    public ArrayList<TaiKhoan> getListTaiKhoan() {
+        return this.listTaiKhoan;
+    }
+    
+    public void setListTaiKhoan(ArrayList<TaiKhoan> list) {
+        this.listTaiKhoan = (ArrayList<TaiKhoan>) list.clone();
+    }
+    
+    public ArrayList<Lop_MonHoc> getListLopMonHoc(String tenLop) {
+        ArrayList<Lop_MonHoc> result = new ArrayList<Lop_MonHoc>();
+        for(Lop_MonHoc item : this.listLop_MonHoc) {
+            if(item.getTenLopMH().equals(tenLop)) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+    
+    public boolean isExistedsAccount(String tenTK) {
+        boolean result = false;
+           for(TaiKhoan acc : this.listTaiKhoan) {
+               if(acc.checkTaiKhoan(tenTK)) {
+                   result = true;
+               }
+           }
+        return result;
     }
 }
 

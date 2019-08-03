@@ -5,11 +5,9 @@
  */
 package quanlysinhvien;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import static quanlysinhvien.QuanLyLopHoc.th;
+import static quanlysinhvien.GiaoVu.th;
         /**
  *
  * @author yumil
