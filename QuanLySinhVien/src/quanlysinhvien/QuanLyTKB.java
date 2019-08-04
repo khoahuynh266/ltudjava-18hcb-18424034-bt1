@@ -42,10 +42,11 @@ public class QuanLyTKB extends javax.swing.JFrame {
     }
 private void initLayout() {        
         jtableTKB.setVisible(false);
-       
         if (th.getsoLop() > 0) {
             addDataForComboBoxClass();
-        } }
+        } 
+        addDataForTableTKB();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -310,7 +311,6 @@ private void importExportFile(String title, int key) {
         for (LopHoc i : listLH) {                   
                 jtableTKB.setVisible(true);
                 tblTKB.setColumnIdentifiers(columName);
-                
                 int stt = 1;
                 ArrayList<ThoiKhoaBieu> listSchedule = i.getTKB();
                 if(listSchedule.size() > 0 && select.equalsIgnoreCase(i.getTenLop())){
@@ -327,13 +327,12 @@ private void importExportFile(String title, int key) {
                     stt++;
                 }                
                 jtableTKB.setModel(tblTKB);
-                 jlableNotify.setText("");
+                jlableNotify.setText("");
+                break;
             } else {
-                if(listSchedule.size() <= 0){
                 jlableNotify.setText("Chưa Có Thời Khóa Biểu!!!!");
                 tblTKB.setColumnIdentifiers(columName);
                 jtableTKB.setModel(tblTKB);
-                    }            
         }  
         }
         
@@ -371,6 +370,7 @@ private void importExportFile(String title, int key) {
                     }
                     th.ThemListLopMH(class_subject);
                 buffer.close();
+                initLayout();
                 } else {
                     JOptionPane.showMessageDialog(null, "!!! Thời Khóa Biểu Sai Lớp");
                 }

@@ -46,7 +46,9 @@ private void initLayout() {
         panelThongKe.setVisible(false);
         if (th.getsoLop() > 0) {
             addDataForComboBoxClass();
-        } }
+        }
+           addDataForTableMonHoc();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,7 +71,6 @@ private void initLayout() {
         jScrollPane2 = new javax.swing.JScrollPane();
         jsvTableDiem = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        notifyDSDiem = new javax.swing.JLabel();
         jbtnThoat = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -190,11 +191,6 @@ private void initLayout() {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Bảng điểm");
 
-        notifyDSDiem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        notifyDSDiem.setForeground(new java.awt.Color(255, 0, 0));
-        notifyDSDiem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        notifyDSDiem.setText("notify");
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -205,18 +201,14 @@ private void initLayout() {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(notifyDSDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1198, Short.MAX_VALUE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(notifyDSDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addGap(27, 27, 27))
@@ -730,8 +722,6 @@ private void initLayout() {
             textSLFail.setText(String.valueOf(lop_MH.tongRot()));
             textTLFail.setText(String.valueOf(Float.valueOf(decimalFormat.format(lop_MH.tiLeRot()))));
         } else {
-            notifyDSDiem.setVisible(true);            
-            notifyDSDiem.setText("Chưa Có Bảng Điểm!!!");
             jsvTableDiem.setModel(table);
             panelUpdate.setVisible(false);
              panelThongKe.setVisible(false);      
@@ -1023,6 +1013,7 @@ private boolean kiemTraDiem() {
             lop_MonHoc.setListDiemSV(listDiem);
             th.setLopMH(valueComboBox[0], lop_MonHoc);
             buffer.close();
+            initLayout();
         }
         }
         catch(Exception e) {
@@ -1110,7 +1101,6 @@ private boolean kiemTraDiem() {
     private javax.swing.JTable jsvTable;
     private javax.swing.JTable jsvTableDiem;
     private javax.swing.JLabel labelThongKe;
-    private javax.swing.JLabel notifyDSDiem;
     private javax.swing.JPanel panelThongKe;
     private javax.swing.JPanel panelUpdate;
     private javax.swing.JTextField textCK;

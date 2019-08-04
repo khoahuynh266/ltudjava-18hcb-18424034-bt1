@@ -57,8 +57,10 @@ static TaiKhoan taiKhoan = new TaiKhoan();
         });
 
         jTextTenTK.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextTenTK.setText("giaovu");
 
         jTextMatKhau.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextMatKhau.setText("giaovu");
         jTextMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextMatKhauActionPerformed(evt);
