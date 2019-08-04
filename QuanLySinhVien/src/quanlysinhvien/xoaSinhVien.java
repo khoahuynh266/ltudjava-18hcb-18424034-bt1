@@ -7,6 +7,7 @@ package quanlysinhvien;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import static quanlysinhvien.GiaoVu.th;
         /**
  *
@@ -198,9 +199,10 @@ public class xoaSinhVien extends javax.swing.JFrame {
               //System.out.print(s);
             if(s.equalsIgnoreCase(key)){
             i.xoaSV(sv);  
-            
+              JOptionPane.showMessageDialog(null, "Xóa Sinh Viên Thành Công :)");
             }
             }
+         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

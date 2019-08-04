@@ -117,7 +117,7 @@ public class TruongHoc {
     
     public void themSV_MonHoc(String lop, String idMH ,SinhVien sv) {
         for (Lop_MonHoc lop_mh : this.listLop_MonHoc) {
-            if (lop_mh.isExists(lop, idMH)) {
+            if (lop_mh.isExists(lop)) {
                 lop_mh.themSV(sv);
             }
         }
