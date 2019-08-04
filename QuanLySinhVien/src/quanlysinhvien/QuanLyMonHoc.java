@@ -7,7 +7,9 @@ package quanlysinhvien;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.Reader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -897,8 +899,9 @@ private boolean kiemTraDiem() {
   
   private void readFile(File file) {
         try {
-            try (FileReader reader = new FileReader(file)) {
-                BufferedReader buffer = new BufferedReader(reader);
+           try( FileInputStream fileInPutStream = new FileInputStream(file)){
+            Reader reader = new java.io.InputStreamReader(fileInPutStream, "utf8");
+            BufferedReader buffer = new BufferedReader(reader);
 
                 String line;
                 line = buffer.readLine();
@@ -986,8 +989,9 @@ private boolean kiemTraDiem() {
         }
     }
      private void readFileScore(File file) {
-        try{
-            try ( FileReader reader = new FileReader(file)){ 
+        try {
+           try( FileInputStream fileInPutStream = new FileInputStream(file)){
+            Reader reader = new java.io.InputStreamReader(fileInPutStream, "utf8");
             BufferedReader buffer = new BufferedReader(reader);
 
             String line;
